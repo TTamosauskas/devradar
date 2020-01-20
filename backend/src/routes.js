@@ -1,5 +1,5 @@
 const { Router } =  require ('express');
-
+const axios = require('axios');
 const routes = Router();
 
 // Método HTTP: GET, POST, PUT, DELETE
@@ -10,8 +10,13 @@ const routes = Router();
 // Body: request.body (Dados para criação ou alteração de registro)
 
 
-routes.post('/users', (request, response) => {
-    console.log(request.body);
+routes.post('/devs', async (request, response) => {
+    const { github_username } = request.body;
+
+    const apiResponse = await axios.get(`https://api.github.com/users/${github_username}`);
+
+    console.log(apiResponse.data);
+
     return response.json({ message: 'Hello OmniStack' });
 });
 
