@@ -1,8 +1,6 @@
-const express = require('express');
+const { Router } =  require ('express');
 
-const app = express();
-
-app.use(express.json());
+const routes = Router();
 
 // Método HTTP: GET, POST, PUT, DELETE
 
@@ -11,9 +9,13 @@ app.use(express.json());
 // Route Params: request.params (identificar um recurso para alteração ou remoção)
 // Body: request.body (Dados para criação ou alteração de registro)
 
-app.post('/users', (request, response) => {
+
+routes.post('/users', (request, response) => {
     console.log(request.body);
+    return response.json({ message: 'Hello OmniStack' });
 });
+
+module.exports = routes;
 
 // app.get('/users', (request, response) => {
 //    return response.json({ message:'Hellosauskas GT' });
@@ -28,4 +30,3 @@ app.post('/users', (request, response) => {
 //    return response.json({ message:'Hellosauskas GT' });
 //});
 
-app.listen(3333);
