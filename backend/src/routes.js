@@ -11,9 +11,14 @@ const routes = Router();
 // Body: request.body (Dados para criação ou alteração de registro)
 
 routes.get('/devs', DevController.index);
+
+routes.delete('/devs/:github_username', DevController.destroy);
+
 routes.post('/devs', DevController.store);
 
 routes.get('/search', SearchController.index);
+
+routes.put('/devs/:github_username',  DevController.update);
 
 module.exports = routes;
 

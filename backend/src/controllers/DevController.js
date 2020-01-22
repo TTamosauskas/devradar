@@ -2,7 +2,7 @@ const axios = require('axios');
 const Dev = require('../models/Dev');
 const parseStringAsArray = require('../utils/parseStringAsArray');
 
-// index, show, store, update, destroy
+// index, show, store, update, destroy (metodos do controller, chamados pelo routes)
 
 module.exports = {
 
@@ -11,7 +11,18 @@ module.exports = {
 
         return response.json(devs);
     },
-
+    
+    async destroy(request, response){
+        const {github_username} = request.params;
+        
+        const devDelete = await Dev.deleteOne({github_username})    
+        if(devDelete.deletedCount === 0){
+        return response.json({ message: 'Esse usuario não existe' })
+        }
+        return response.json(devDelete);
+     
+    },
+    
     async store(request, response) {
     
         const { github_username, techs, latitude, longitude } = request.body;
@@ -47,6 +58,37 @@ module.exports = {
         }
     
         return response.json(dev);
+},
+
+async update(request, response) {
+    
+    const {github_username} = request.params;
+
+    const {name, techs, bio, latitude, longitude } = request.body;
+    
+    const techsArray = parseStringAsArray(techs);
+
+    const location = {
+        type: 'Point',
+        coordinates: [longitude, latitude],
+    }
+    
+    let dev = await Dev.findOne({ github_username });
+
+    if(!dev){
+        return response.json({ message: 'Esse usuario não existe' })
+    }
+
+    const devUpdate = await Dev.updateOne(dev, {
+        github_username,
+        bio,
+        techs: techsArray,
+        location,
+    })
+
+   return response.json(devUpdate);
+
 }
+  
 
 };
