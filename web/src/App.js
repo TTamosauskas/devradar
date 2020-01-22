@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'; 
+//import Header from './Header';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// Componente - Trechos de codigo que pode ser isolado ou repetido
+// Propriedade - Atributos e informações que um componeten PAU passa para um componente FILHO
+// Estado - Informação mnantida pelo componente (imutabilidade)
+
+function App(){
+
+const [counter, setCounter] = useState(0);
+
+function IncrementCounter() {
+     setCounter(counter + 1);
 }
+
+return(
+    <>
+    <h1>Contador {counter}</h1>
+    <button onClick={IncrementCounter}>Incrementar</button>
+    </>
+);
+
+}
+
+
+
+// App é um componente e title uma propriedade
+// function App(){ 
+//    return (
+// <>
+// <Header title="Dashboard"/> 
+// <Header title="Oi oi i"/>
+//   <Header title="Xavier"/>
+//  </>
+//  );
+//}
+
 
 export default App;
