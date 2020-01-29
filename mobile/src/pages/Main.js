@@ -44,6 +44,7 @@ function Main({ navigation }) {
   }, []);
 
   async function loadDevs() {
+    // exemplo de deestruturação
     const { latitude, longitude } = currentRegion;
     const response = await api.get('/search', {
       params: {
